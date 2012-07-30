@@ -10,6 +10,11 @@
   "devDependencies": {
     "node-dev": "~0.2.5",
     "mocha": "~1.3.0",
-    "request": "~2.9.203"
+    "request": "~2.9.203",
+    "libxmljs": "~0.6.0"
+  },
+  "scripts": {
+    "test": "./bin/test"
   }
+
 }
