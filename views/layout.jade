@@ -6,4 +6,11 @@ html
   body
     #header
       h1= title
+      p= typeof(flash)
+    - if (typeof(flash) != 'undefined')
+      - var flashTypes = ['info', 'error']
+        each flashType in flashTypes
+          if flash[flashType]
+            p.flash(class=flashType)
+              = flash[flashType]
     block content

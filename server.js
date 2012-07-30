@@ -7,7 +7,10 @@ require('coffee-script')
 
 var express = require('express')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , Memstore = express.session.MemoryStore
+  , flash = require('connect-flash')
+  , util = require('util');
 
 var app = express();
 
@@ -22,6 +25,14 @@ app.configure(function(){
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
+  app.use(express.cookieParser());
+  app.use(express.session({
+    secret: "aasdfadsfdasfdsafdsafsdafdsa",
+    store: Memstore({
+      reapInterval: 60000 * 10
+    })
+  }));
+  app.use(flash());
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
 });
@@ -40,3 +51,4 @@ require('./apps/authentication/routes')(app)
 http.createServer(app).listen(app.settings.port, function(){
   console.log("Express server listening on port " + app.get('port'));
 });
+
