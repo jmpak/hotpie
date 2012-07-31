@@ -32,20 +32,18 @@ app.configure(function(){
     })
   }));
   app.use(function() {
-    var _flash = {
-      set_info : function(msg) {
-        delete this.error;
-        this.info = msg;
-      },
-
-      set_error : function(msg) {
-        delete this.info;
-        this.error = msg;
+    var flash = function(type, msg) {
+      if(type && msg) {
+        this.msg = {};
+        this.msg[type] = msg;
+      } else {
+        return (this.msg && this.msg[type]) || undefined;
       }
-    };
+    }
 
     return function(req, res, next) {
-      req.flash = _flash;
+      console.log('ddasfadsf');
+      req.flash = function(type, msg) { return flash(type, msg); };
       res.locals.flash = req.flash;
       next();
     }
