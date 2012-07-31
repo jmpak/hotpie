@@ -35,18 +35,15 @@ app.configure(function(){
     var _flash = {
       set_info : function(msg) {
         delete this.error;
-        console.log('SET INFO');
-        console.log(this);
         this.info = msg;
       },
 
       set_error : function(msg) {
-        console.log('SET ERROR');
-        console.log(this);
         delete this.info;
         this.error = msg;
       }
     };
+
     return function(req, res, next) {
       req.flash = _flash;
       res.locals.flash = req.flash;

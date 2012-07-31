@@ -9,7 +9,7 @@ routes = (app) ->
   app.post '/sessions', (req, res) ->
     if ('piechef' is req.body.user) and ('12345' is req.body.password)
       req.session.currentUser = req.body.user
-      req.flash.set_info  'You are logged in as #{req.session.currentUser}'
+      req.flash.set_info  'You are logged in as ' + req.session.currentUser
       console.log(req.flash)
       res.redirect '/login'
       return
