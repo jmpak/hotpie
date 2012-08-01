@@ -34,16 +34,16 @@ app.configure(function(){
   app.use(function() {
     var flash = function(type, msg) {
       if(type && msg) {
-        this.msgs = {};
-        this.msgs[type] = msg;
+        this.msg = {};
+        this.msg[type] = msg;
       } else {
-        return this.msgs || {};
+        return (this.msg && this.msg[type]) || undefined;
       }
     }
 
     return function(req, res, next) {
       req.flash = function(type, msg) { return flash(type, msg); };
-      res.locals.flash = req.flash();
+      res.locals.flash = req.flash;
       next();
     }
   }());
